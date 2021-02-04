@@ -6,6 +6,7 @@ require('dotenv').config()
 const express = require('express')
 const app = express()
 const axios = require('axios')
+const fetch = require('node-fetch')
 const expressLayouts = require('express-ejs-layouts')
 const methodOverride = require('method-override')
 
@@ -43,7 +44,7 @@ app.get('/swapi/search', (req, res)=> {
 app.get('/swapi/show', (req, res)=> {
    console.log('made it here') 
    console.log('query', req.query)
-   
+
    // basic api call to get a person
    axios.get(`https://swapi.dev/api/people/${req.query.personId}`)
    .then((response)=> {
@@ -57,6 +58,19 @@ app.get('/swapi/show', (req, res)=> {
        }
        res.render('show', person)
    })
+//    fetch(`https://swapi.dev/api/people/${req.query.personId}`)
+//    .then(res=> res.json())
+//    .then((response)=> {
+//        // response.data is where our data lives
+//        console.log(response)
+//        // make a person object
+//        const person = {
+//            name: response.name,
+//            birth: response['birth_year'],
+//            home: response.homeworld
+//        }
+//        res.render('show', person)
+//    })
 })
 
 
